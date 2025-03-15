@@ -1,7 +1,7 @@
 @host = http://localhost:3000
 
 ### Listar todas as tarefas /tasks
-GET {{host}}/tasks
+GET {{host}}/tasks?limit=10&offset=0
 
 ### Buscar tarefa /tasks/:id
 GET {{host}}/tasks/1
