@@ -9,12 +9,12 @@ GET {{host}}/tasks/1
 ### Deleta tarefa /tasks/:id
 DELETE  {{host}}/tasks/1
 
-### Criar Tarefa /tasks
+### 🔵 Criar Tarefa /tasks
 POST {{host}}/tasks
 Content-Type: application/json
 
 {
-    "name": "Seguir o sujeito programador",
+    "name": "Sujeito",
     "description": "Aprendendo nestJS do zero"
 }
 
@@ -23,6 +23,6 @@ PATCH  {{host}}/tasks/1
 Content-Type: application/json
 
 {
-    "name": "Seguir o sujeito programador no you tube",
-    "description": "Aprendendo nestJS"
+    "name": "Tarefa alterada",
+    "completed": true
 }
