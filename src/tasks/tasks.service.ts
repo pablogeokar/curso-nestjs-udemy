@@ -23,8 +23,8 @@ export class TasksService {
     return this.tasks;
   }
 
-  findOne(id: string) {
-    const task = this.tasks.find((task) => task.id === Number(id));
+  findOne(id: number) {
+    const task = this.tasks.find((task) => task.id === id);
 
     if (task) return task;
 
@@ -46,8 +46,8 @@ export class TasksService {
     return createTaskDto;
   }
 
-  update(id: string, updateTaskDto: UpdateTaskDto) {
-    const taskIndex = this.tasks.findIndex((task) => task.id === Number(id));
+  update(id: number, updateTaskDto: UpdateTaskDto) {
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
 
     if (taskIndex < 0) {
       throw new HttpException('Essa Tarefa não existe', HttpStatus.NOT_FOUND);
@@ -63,8 +63,8 @@ export class TasksService {
     return this.tasks[taskIndex];
   }
 
-  delete(id: string) {
-    const taskIndex = this.tasks.findIndex((task) => task.id === Number(id));
+  delete(id: number) {
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
 
     if (taskIndex < 0) {
       throw new HttpException('Essa Tarefa não existe', HttpStatus.NOT_FOUND);
