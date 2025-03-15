@@ -4,7 +4,7 @@
 GET {{host}}/tasks
 
 ### Buscar tarefa /tasks/:id
-GET {{host}}/tasks/10
+GET {{host}}/tasks/1
 
 ### Deleta tarefa /tasks/:id
 DELETE  {{host}}/tasks/1
@@ -14,7 +14,7 @@ POST {{host}}/tasks
 Content-Type: application/json
 
 {
-    "name": "Seguir o sujeito",
+    "name": "Seguir o sujeito programador",
     "description": "Aprendendo nestJS do zero"
 }
 
@@ -23,6 +23,6 @@ PATCH  {{host}}/tasks/1
 Content-Type: application/json
 
 {
-    "name": "Seguir o sujeito",
+    "name": "Seguir o sujeito programador no you tube",
     "description": "Aprendendo nestJS"
 }

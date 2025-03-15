@@ -31,14 +31,11 @@ export class TasksController {
 
   @Patch(':id')
   updateTask(@Param('id') id: string, @Body() body: any) {
-    console.log('ID: ', id);
-    console.log('body: ', body);
-    return 'Atualiza';
+    return this.taskService.update(id, body);
   }
 
   @Delete(':id')
   deleteTask(@Param('id') id: string) {
-    console.log('ID ENVIADO: ', id);
-    return 'Deletar a tarefa com o id ' + id;
+    return this.taskService.delete(id);
   }
 }
