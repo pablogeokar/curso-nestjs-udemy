@@ -5,6 +5,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Task } from './entities/task.entity';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -30,21 +32,21 @@ export class TasksService {
     throw new NotFoundException('Essa Tarefa não existe');
   }
 
-  create(body: any) {
+  create(createTaskDto: CreateTaskDto) {
     const newId = this.tasks.length + 1;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const newTask = {
       id: newId,
-      ...body,
+      ...createTaskDto,
+      completed: false,
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     this.tasks.push(newTask);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return body;
+
+    return createTaskDto;
   }
 
-  update(id: string, body: any) {
+  update(id: string, updateTaskDto: UpdateTaskDto) {
     const taskIndex = this.tasks.findIndex((task) => task.id === Number(id));
 
     if (taskIndex < 0) {
@@ -52,10 +54,10 @@ export class TasksService {
     }
 
     const taskItem = this.tasks[taskIndex];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     this.tasks[taskIndex] = {
       ...taskItem,
-      ...body,
+      ...updateTaskDto,
     };
 
     return this.tasks[taskIndex];
