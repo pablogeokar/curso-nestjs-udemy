@@ -1,0 +1,28 @@
+@host = http://localhost:3000
+
+### Listar todas as tarefas /tasks
+GET {{host}}/tasks
+
+### Buscar tarefa /tasks/:id
+GET {{host}}/tasks/10
+
+### Deleta tarefa /tasks/:id
+DELETE  {{host}}/tasks/1
+
+### Criar Tarefa /tasks
+POST {{host}}/tasks
+Content-Type: application/json
+
+{
+    "name": "Seguir o sujeito",
+    "description": "Aprendendo nestJS do zero"
+}
+
+### Atualizar Tarefa /tasks
+PATCH  {{host}}/tasks/1
+Content-Type: application/json
+
+{
+    "name": "Seguir o sujeito",
+    "description": "Aprendendo nestJS"
+}
