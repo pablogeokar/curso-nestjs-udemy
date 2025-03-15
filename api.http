@@ -7,7 +7,7 @@ GET {{host}}/tasks
 GET {{host}}/tasks/1
 
 ### Deleta tarefa /tasks/:id
-DELETE  {{host}}/tasks/1
+DELETE  {{host}}/tasks/2
 
 ### 🔵 Criar Tarefa /tasks
 POST {{host}}/tasks
