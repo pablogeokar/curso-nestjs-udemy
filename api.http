@@ -1,15 +1,15 @@
 @host = http://localhost:3000
 
-### Listar todas as tarefas /tasks
+### Listar todas as tarefas
 GET {{host}}/tasks?limit=10&offset=0
 
-### Buscar tarefa /tasks/:id
+### Buscar tarefa
 GET {{host}}/tasks/1
 
-### Deleta tarefa /tasks/:id
+### Deleta tarefa
 DELETE  {{host}}/tasks/2
 
-### 🔵 Criar Tarefa /tasks
+### Criar Tarefa
 POST {{host}}/tasks
 Content-Type: application/json
 
@@ -18,11 +18,24 @@ Content-Type: application/json
     "description": "Aprendendo nestJS do zero"
 }
 
-### Atualizar Tarefa /tasks
+### Atualizar Tarefa
 PATCH  {{host}}/tasks/1
 Content-Type: application/json
 
 {
     "name": "Tarefa alterada",
     "completed": true
+}
+
+### Buscar usuário
+GET {{host}}/users/1
+
+### Cria User
+POST   {{host}}/users
+Content-Type: application/json
+
+{
+    "name": "Pablo George",
+    "email": "pablogeokar@gmail.com",
+    "password": "123456"
 }
