@@ -2,6 +2,7 @@
 
 ### Listar todas as tarefas
 GET {{host}}/tasks?limit=10&offset=0
+Authorization: 123456
 
 ### Buscar tarefa
 GET {{host}}/tasks/1
@@ -15,7 +16,8 @@ Content-Type: application/json
 
 {
     "name": "Sujeito",
-    "description": "Aprendendo nestJS do zero"
+    "description": "Aprendendo nestJS do zero",
+    "userId": 2
 }
 
 ### Atualizar Tarefa
@@ -28,7 +30,7 @@ Content-Type: application/json
 }
 
 ### Buscar usuário
-GET {{host}}/users/1
+GET {{host}}/users/2
 
 ### Cria Usuário
 POST   {{host}}/users
@@ -37,7 +39,7 @@ Content-Type: application/json
 {
     "name": "Pablo George",
     "email": "pablogeokar@gmail.com",
-    "password": "123456"
+    "password": "123456"    
 }
 
 ### Atualizar Usuário
