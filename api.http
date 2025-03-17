@@ -30,7 +30,7 @@ Content-Type: application/json
 ### Buscar usuário
 GET {{host}}/users/1
 
-### Cria User
+### Cria Usuário
 POST   {{host}}/users
 Content-Type: application/json
 
@@ -39,3 +39,14 @@ Content-Type: application/json
     "email": "pablogeokar@gmail.com",
     "password": "123456"
 }
+
+### Atualizar Usuário
+PATCH  {{host}}/users/1
+Content-Type: application/json
+
+{
+    "name": "Pablo George Cardoso Campos Borges"    
+}
+
+### Deleta Usuário
+DELETE   {{host}}/users/1
