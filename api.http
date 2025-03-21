@@ -5,7 +5,7 @@ GET {{host}}/tasks?limit=10&offset=0
 Authorization: 123456
 
 ### Buscar tarefa
-GET {{host}}/tasks/1
+GET {{host}}/tasks/10
 
 ### Deleta tarefa
 DELETE  {{host}}/tasks/2
