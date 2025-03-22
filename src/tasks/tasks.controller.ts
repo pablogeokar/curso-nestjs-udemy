@@ -20,18 +20,23 @@ import { LoggerInterceptor } from 'src/interceptors/logger.interceptor';
 import { BodyTaskInterceptor } from 'src/interceptors/body-create-task.interceptor';
 import { AddHeaderInterceptor } from 'src/interceptors/add-header.interceptor';
 import { AuthAdminGuard } from 'src/common/guards/admin.guard';
+import { TaskUtils } from './tasks.utils';
 //import { ApiExceptionFilter } from 'src/common/filters/exception-filter';
 
 @Controller('tasks')
 //@UseFilters(ApiExceptionFilter) Forma alternativa de chamar os filters, no meu caso eu chamei os filters no modulo
 @UseGuards(AuthAdminGuard)
 export class TasksController {
-  constructor(private readonly taskService: TasksService) {}
+  constructor(
+    private readonly taskService: TasksService,
+    private readonly taskUtils: TaskUtils,
+  ) {}
 
   @Get()
   @UseInterceptors(LoggerInterceptor)
   @UseInterceptors(AddHeaderInterceptor)
   findAllTasks(@Query() paginationDto: PaginationDto) {
+    console.log(this.taskUtils.splitString('Aprender NestJs do Zero'));
     return this.taskService.findAll(paginationDto);
   }
 
