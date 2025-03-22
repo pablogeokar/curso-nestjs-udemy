@@ -16,6 +16,10 @@ import { TaskUtils } from './tasks.utils';
       provide: APP_FILTER,
       useClass: ApiExceptionFilter,
     },
+    {
+      provide: 'KEY_TOKEN',
+      useValue: 'TOKEN_123456789',
+    },
   ],
 })
 export class TasksModule {}

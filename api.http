@@ -43,12 +43,13 @@ Content-Type: application/json
 }
 
 ### Atualizar Usuário
-PATCH  {{host}}/users/1
+PATCH  {{host}}/users/3
 Content-Type: application/json
 
 {
-    "name": "Pablo George Cardoso Campos Borges"    
+    "name": "Pablo George Cardoso Campos Borges",
+    "password": "123456"
 }
 
 ### Deleta Usuário
-DELETE   {{host}}/users/1
+DELETE   {{host}}/users/2
