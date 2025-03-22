@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
+  //UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
@@ -17,8 +19,12 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { LoggerInterceptor } from 'src/interceptors/logger.interceptor';
 import { BodyTaskInterceptor } from 'src/interceptors/body-create-task.interceptor';
 import { AddHeaderInterceptor } from 'src/interceptors/add-header.interceptor';
+import { AuthAdminGuard } from 'src/common/guards/admin.guard';
+//import { ApiExceptionFilter } from 'src/common/filters/exception-filter';
 
 @Controller('tasks')
+//@UseFilters(ApiExceptionFilter) Forma alternativa de chamar os filters, no meu caso eu chamei os filters no modulo
+@UseGuards(AuthAdminGuard)
 export class TasksController {
   constructor(private readonly taskService: TasksService) {}
 
