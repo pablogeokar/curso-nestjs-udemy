@@ -5,7 +5,7 @@ GET {{host}}/tasks?limit=10&offset=0
 Authorization: 123456
 
 ### Buscar tarefa
-GET {{host}}/tasks/10
+GET {{host}}/tasks/1
 
 ### Deleta tarefa
 DELETE  {{host}}/tasks/2
@@ -13,11 +13,12 @@ DELETE  {{host}}/tasks/2
 ### Criar Tarefa
 POST {{host}}/tasks
 Content-Type: application/json
+Authorization: 123456
 
 {
     "name": "Sujeito",
     "description": "Aprendendo nestJS do zero",
-    "userId": 2
+    "userId": 3
 }
 
 ### Atualizar Tarefa
