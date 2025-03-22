@@ -1,4 +1,5 @@
 @host = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoicGFibG9nZW9rYXJAZ21haWwuY29tIiwiaWF0IjoxNzQyNjU1MDI1LCJleHAiOjE3NDUyNDcwMjUsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.LwL1dj43xIaP77xsK0dKJzi1Va6KDFLKuS0B2xW-at8
 
 ### Listar todas as tarefas
 GET {{host}}/tasks?limit=10&offset=0
@@ -46,6 +47,7 @@ Content-Type: application/json
 ### Atualizar Usuário
 PATCH  {{host}}/users/3
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "name": "Pablo George Cardoso Campos Borges",
