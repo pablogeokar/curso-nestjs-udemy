@@ -8,7 +8,6 @@ import { TaskUtils } from './tasks.utils';
 
 @Module({
   //imports: [PrismaModule],
-  controllers: [TasksController],
   providers: [
     TasksService,
     TaskUtils,
@@ -21,5 +20,6 @@ import { TaskUtils } from './tasks.utils';
       useValue: 'TOKEN_123456789',
     },
   ],
+  controllers: [TasksController],
 })
 export class TasksModule {}
