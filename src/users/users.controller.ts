@@ -15,7 +15,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthTokenGuard } from 'src/auth/guard/auth-token.guard';
 //import { REQUEST_TOKEN_PAYLOAD_NAME } from 'src/auth/common/auth.constants';
-import { TokenPaylaodParam } from 'src/auth/param/token-payload.param';
+import { TokenPayloadParam } from 'src/auth/param/token-payload.param';
 import { PayloadTokenDto } from 'src/auth/dto/payload-token.dto';
 
 @Controller('users')
@@ -39,7 +39,7 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
     //@Req() req: Request,
-    @TokenPaylaodParam() tokenPayload: PayloadTokenDto,
+    @TokenPayloadParam() tokenPayload: PayloadTokenDto,
   ) {
     // Visualizando o token vindo do Request
     //console.log('ID user', req[REQUEST_TOKEN_PAYLOAD_NAME].sub);
@@ -54,7 +54,7 @@ export class UsersController {
   @Delete(':id')
   deleteUser(
     @Param('id', ParseIntPipe) id: number,
-    @TokenPaylaodParam() tokenPayload: PayloadTokenDto,
+    @TokenPayloadParam() tokenPayload: PayloadTokenDto,
   ) {
     return this.userService.delete(id, tokenPayload);
   }

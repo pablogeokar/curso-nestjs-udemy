@@ -1,0 +1,32 @@
+@host = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGFibG9nZW9rYXJAaG90bWFpbC5jb20iLCJpYXQiOjE3NDI3Mzk4MDAsImV4cCI6MTc0NTMzMTgwMCwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.TN1SL2_Ifq9ehS6IpFi0Sj1Zb4xyRHzNVbX29h4dXso
+
+### Listar todas as tarefas
+GET {{host}}/tasks?limit=10&offset=0
+
+### Buscar tarefa
+GET {{host}}/tasks/6
+
+### Deleta tarefa
+DELETE  {{host}}/tasks/6
+Authorization: Bearer {{token}}
+
+### Criar Tarefa
+POST {{host}}/tasks
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Sujeito",
+    "description": "Aprendendo nestJS do zero"    
+}
+
+### Atualizar Tarefa
+PATCH  {{host}}/tasks/6
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Tarefa alterada",
+    "completed": true
+}

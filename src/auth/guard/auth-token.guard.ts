@@ -14,8 +14,6 @@ import { REQUEST_TOKEN_PAYLOAD_NAME } from '../common/auth.constants';
 @Injectable()
 export class AuthTokenGuard implements CanActivate {
   constructor(
-    private readonly JwtService: JwtService,
-
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
     private readonly jwtService: JwtService,

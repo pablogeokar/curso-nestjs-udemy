@@ -8,6 +8,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { PayloadTokenDto } from 'src/auth/dto/payload-token.dto';
 
 @Injectable()
 export class TasksService {
@@ -36,11 +37,16 @@ export class TasksService {
     throw new NotFoundException('Essa Tarefa não existe');
   }
 
-  async create(createTaskDto: CreateTaskDto) {
+  async create(createTaskDto: CreateTaskDto, tokenPayload: PayloadTokenDto) {
     try {
       console.log('createTaskDto', createTaskDto);
       const task = await this.prisma.task.create({
-        data: { ...createTaskDto, completed: false },
+        data: {
+          name: createTaskDto.name,
+          description: createTaskDto.description,
+          completed: false,
+          userId: tokenPayload.sub,
+        },
       });
 
       return task;
@@ -53,25 +59,52 @@ export class TasksService {
     }
   }
 
-  async update(id: number, updateTaskDto: UpdateTaskDto) {
+  async update(
+    id: number,
+    updateTaskDto: UpdateTaskDto,
+    tokenPayload: PayloadTokenDto,
+  ) {
     const findTask = await this.prisma.task.findFirst({ where: { id } });
 
     if (!findTask) {
       throw new HttpException('Essa Tarefa não existe', HttpStatus.NOT_FOUND);
     }
+
+    if (findTask.userId !== tokenPayload.sub) {
+      throw new HttpException(
+        'Você não é o proprietário da tarefa',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
     const task = await this.prisma.task.update({
       where: { id },
-      data: updateTaskDto,
+      data: {
+        name: updateTaskDto.name ? updateTaskDto.name : findTask.name,
+        description: updateTaskDto.description
+          ? updateTaskDto.description
+          : findTask.description,
+        completed: updateTaskDto.completed
+          ? updateTaskDto.completed
+          : findTask.completed,
+      },
     });
 
     return task;
   }
 
-  async delete(id: number) {
+  async delete(id: number, tokenPayload: PayloadTokenDto) {
     const findTask = await this.prisma.task.findFirst({ where: { id } });
 
     if (!findTask) {
       throw new HttpException('Essa Tarefa não existe', HttpStatus.NOT_FOUND);
+    }
+
+    if (findTask.userId !== tokenPayload.sub) {
+      throw new HttpException(
+        'Você não é o proprietário da tarefa',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     await this.prisma.task.delete({ where: { id } });

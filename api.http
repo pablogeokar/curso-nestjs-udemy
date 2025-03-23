@@ -1,35 +1,6 @@
 @host = http://localhost:3000
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoicGFibG9nZW9rYXJAZ21haWwuY29tIiwiaWF0IjoxNzQyNzM1OTIxLCJleHAiOjE3NDUzMjc5MjEsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.gJ5i0hjAuNRCPUOUOYdl57NEquVbioWoMq2rvluLpSE
 
-### Listar todas as tarefas
-GET {{host}}/tasks?limit=10&offset=0
-Authorization: 123456
-
-### Buscar tarefa
-GET {{host}}/tasks/1
-
-### Deleta tarefa
-DELETE  {{host}}/tasks/2
-
-### Criar Tarefa
-POST {{host}}/tasks
-Content-Type: application/json
-Authorization: 123456
-
-{
-    "name": "Sujeito",
-    "description": "Aprendendo nestJS do zero",
-    "userId": 3
-}
-
-### Atualizar Tarefa
-PATCH  {{host}}/tasks/1
-Content-Type: application/json
-
-{
-    "name": "Tarefa alterada",
-    "completed": true
-}
 
 ### Buscar usuário
 GET {{host}}/users/2
@@ -45,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Atualizar Usuário
-PATCH  {{host}}/users/1
+PATCH  {{host}}/users/4
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
