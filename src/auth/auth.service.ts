@@ -20,12 +20,13 @@ export class AuthService {
     const user = await this.prisma.user.findFirst({
       where: {
         email: signInDto.email,
+        active: true,
       },
     });
 
     if (!user) {
       throw new HttpException(
-        'Usuário/Senha inválidos',
+        'Falha ao autenticar usuário',
         HttpStatus.UNAUTHORIZED,
       );
     }
@@ -37,7 +38,7 @@ export class AuthService {
 
     if (!passwordIsValid) {
       throw new HttpException(
-        'Usuário/Senha inválidos',
+        'Falha ao autenticar usuário',
         HttpStatus.UNAUTHORIZED,
       );
     }
