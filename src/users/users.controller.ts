@@ -9,7 +9,17 @@ import {
   Post,
   //Req,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipeBuilder,
+  HttpStatus,
+  //UploadedFiles,
 } from '@nestjs/common';
+import {
+  FileInterceptor /* FilesInterceptor,*/,
+} from '@nestjs/platform-express';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,6 +27,7 @@ import { AuthTokenGuard } from 'src/auth/guard/auth-token.guard';
 //import { REQUEST_TOKEN_PAYLOAD_NAME } from 'src/auth/common/auth.constants';
 import { TokenPayloadParam } from 'src/auth/param/token-payload.param';
 import { PayloadTokenDto } from 'src/auth/dto/payload-token.dto';
+//import { randomUUID } from 'node:crypto';
 
 @Controller('users')
 export class UsersController {
@@ -58,4 +69,63 @@ export class UsersController {
   ) {
     return this.userService.delete(id, tokenPayload);
   }
+
+  @UseGuards(AuthTokenGuard)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadAvatar(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: /jpeg|jpg|png/g,
+        })
+        .addMaxSizeValidator({
+          maxSize: 1 * (1024 * 1024), // Tamanho máximo 1 MB
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+        }),
+    )
+    file: Express.Multer.File,
+    @TokenPayloadParam() tokenPayload: PayloadTokenDto,
+  ) {
+    //const mimeType = file.mimetype;
+    const fileExtension = path
+      .extname(file.originalname)
+      .toLowerCase()
+      .substring(1);
+    //const filename = `${randomUUID()}.${fileExtension}`;
+    const filename = `${tokenPayload.sub}.${fileExtension}`;
+    const fileLocale = path.resolve(process.cwd(), 'uploads', filename);
+
+    // console.log(mimeType);
+    // console.log(fileExtension);
+    // console.log(filename);
+    // console.log(fileLocale);
+    // console.log(file);
+
+    await fs.writeFile(fileLocale, file.buffer);
+
+    return true;
+  }
+
+  // Este exemplo envia multiplos arquivos
+  // @UseGuards(AuthTokenGuard)
+  // @Post('upload')
+  // @UseInterceptors(FilesInterceptor('file'))
+  // uploadAvatar(
+  //   @UploadedFiles() files: Array<Express.Multer.File>,
+  //   @TokenPayloadParam() tokenPayload: PayloadTokenDto,
+  // ) {
+  //   files.map((file) => {
+  //     const fileExtension = path
+  //       .extname(file.originalname)
+  //       .toLowerCase()
+  //       .substring(1);
+  //     const filename = `${randomUUID()}.${fileExtension}`;
+  //     const fileLocale = path.resolve(process.cwd(), 'uploads', filename);
+  //     void fs.writeFile(fileLocale, file.buffer);
+  //   });
+  //   return true;
+  // }
 }

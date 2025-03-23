@@ -1,0 +1,61 @@
+@host = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGFibG9nZW9rYXJAaG90bWFpbC5jb20iLCJpYXQiOjE3NDI3NDA3ODAsImV4cCI6MTc0NTMzMjc4MCwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.iAwb9i6ePoJtnBxBiB8uqR-gY92AvNUEbIpyyUhNHCk
+
+
+### Buscar usuário
+GET {{host}}/users/4
+
+### Cria Usuário
+POST   {{host}}/users
+Content-Type: application/json
+
+{
+    "name": "Pablo",
+    "email": "pablogeokar@hotmail.com",
+    "password": "123456"    
+}
+
+### Atualizar Usuário
+PATCH  {{host}}/users/4
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Pablo George",
+    "password": "123456"    
+}
+
+### Deleta Usuário
+DELETE   {{host}}/users/4
+Authorization: Bearer {{token}}
+
+### Upload Single Avatar
+POST  {{host}}/users/upload
+Content-Type: multipart/form-data; boundary=BoundaryString
+Authorization: Bearer {{token}}
+
+
+--BoundaryString
+Content-Disposition: form-data; name="file"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./avatar.jpg
+--BoundaryString--
+
+### Upload Multiple Avatars
+POST  {{host}}/users/upload
+Content-Type: multipart/form-data; boundary=MultipleFilesBoundary
+Authorization: Bearer {{token}}
+
+
+--MultipleFilesBoundary
+Content-Disposition: form-data; name="file"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./avatar.jpg
+--MultipleFilesBoundary
+Content-Disposition: form-data; name="file"; filename="avatar2.jpg"
+Content-Type: image/jpeg
+
+< ./avatar2.jpg
+--MultipleFilesBoundary--
