@@ -30,5 +30,6 @@ model User {
   email        String    @unique
   active       Boolean   @default(true)
   createdAt    DateTime? @default(now())
+  avatar       String?
   Task         Task[]
 }
