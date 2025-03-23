@@ -12,9 +12,8 @@ export class BodyTaskInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const request = context.switchToHttp().getRequest();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const { method, url, body } = request;
 
     console.log(`[REQUEST] ${method} ${url}`);

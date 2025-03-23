@@ -1,5 +1,5 @@
 @host = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoicGFibG9nZW9rYXJAZ21haWwuY29tIiwiaWF0IjoxNzQyNjU1MDI1LCJleHAiOjE3NDUyNDcwMjUsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.LwL1dj43xIaP77xsK0dKJzi1Va6KDFLKuS0B2xW-at8
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoicGFibG9nZW9rYXJAZ21haWwuY29tIiwiaWF0IjoxNzQyNzM1OTIxLCJleHAiOjE3NDUzMjc5MjEsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.gJ5i0hjAuNRCPUOUOYdl57NEquVbioWoMq2rvluLpSE
 
 ### Listar todas as tarefas
 GET {{host}}/tasks?limit=10&offset=0
@@ -39,13 +39,13 @@ POST   {{host}}/users
 Content-Type: application/json
 
 {
-    "name": "Pablo George",
-    "email": "pablogeokar@gmail.com",
+    "name": "Pablo",
+    "email": "pablogeokar@hotmail.com",
     "password": "123456"    
 }
 
 ### Atualizar Usuário
-PATCH  {{host}}/users/3
+PATCH  {{host}}/users/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -55,4 +55,5 @@ Authorization: Bearer {{token}}
 }
 
 ### Deleta Usuário
-DELETE   {{host}}/users/2
+DELETE   {{host}}/users/4
+Authorization: Bearer {{token}}

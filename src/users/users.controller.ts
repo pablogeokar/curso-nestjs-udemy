@@ -35,20 +35,27 @@ export class UsersController {
 
   @UseGuards(AuthTokenGuard)
   @Patch(':id')
-  updateUser(
+  async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
     //@Req() req: Request,
     @TokenPaylaodParam() tokenPayload: PayloadTokenDto,
   ) {
+    // Visualizando o token vindo do Request
     //console.log('ID user', req[REQUEST_TOKEN_PAYLOAD_NAME].sub);
-    console.log('PAYLOAD RECEBIDO', tokenPayload);
 
-    return this.userService.update(id, updateUserDto);
+    // Visualizando o payload vindo do parametro personalizado @TokenPayloadParam
+    //console.log('PAYLOAD RECEBIDO', tokenPayload);
+
+    return await this.userService.update(id, updateUserDto, tokenPayload);
   }
 
+  @UseGuards(AuthTokenGuard)
   @Delete(':id')
-  deleteUser(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.delete(id);
+  deleteUser(
+    @Param('id', ParseIntPipe) id: number,
+    @TokenPaylaodParam() tokenPayload: PayloadTokenDto,
+  ) {
+    return this.userService.delete(id, tokenPayload);
   }
 }

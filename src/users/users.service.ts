@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { HashingServiceProtocol } from 'src/auth/hash/hashing.service';
+import { PayloadTokenDto } from 'src/auth/dto/payload-token.dto';
 
 @Injectable()
 export class UsersService {
@@ -55,7 +56,11 @@ export class UsersService {
     }
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    tokenPayload: PayloadTokenDto,
+  ) {
     try {
       const user = await this.prisma.user.findFirst({
         where: { id },
@@ -63,6 +68,10 @@ export class UsersService {
 
       if (!user) {
         throw new HttpException('Usuário não existe', HttpStatus.BAD_REQUEST);
+      }
+
+      if (user.id !== tokenPayload.sub) {
+        throw new HttpException('Acesso Negado', HttpStatus.BAD_REQUEST);
       }
 
       const dataUser: { name?: string; passwordHash?: string } = {
@@ -89,10 +98,18 @@ export class UsersService {
       return updateUser;
     } catch (error) {
       console.log(error);
+      // Re-throw the error so it can be caught by the exception filter
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erro ao atualizar usuário',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
-  async delete(id: number) {
+  async delete(id: number, tokenPayload: PayloadTokenDto) {
     try {
       const user = await this.prisma.user.findFirst({
         where: { id },
@@ -102,12 +119,24 @@ export class UsersService {
         throw new HttpException('Usuário não existe', HttpStatus.BAD_REQUEST);
       }
 
+      if (user.id !== tokenPayload.sub) {
+        throw new HttpException('Acesso Negado', HttpStatus.BAD_REQUEST);
+      }
+
       await this.prisma.user.delete({ where: { id } });
       return {
         message: 'Usuário excluído com sucesso!',
       };
     } catch (error) {
       console.log(error);
+      // Re-throw the error so it can be caught by the exception filter
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erro ao excluir usuário',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }
