@@ -12,12 +12,18 @@ import { UsersModule } from 'src/users/users.module';
 import { LoggerMiddleware } from 'src/common/middlewares/logger.middleware';
 import { AuthModule } from 'src/auth/auth.module';
 import { PrismaModule } from 'src/prisma/prisma.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'node:path';
 //import { APP_GUARD } from '@nestjs/core';
 //import { AuthAdminGuard } from 'src/common/guards/admin.guard';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'uploads'),
+      serveRoot: '/files',
+    }),
     PrismaModule,
     TasksModule,
     UsersModule,
